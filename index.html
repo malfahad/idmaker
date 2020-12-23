@@ -342,18 +342,15 @@
             delete link;
             clicky.goal('440');
         }
-        console.log(dataURL)
 
     });
 
     function previewFile() {
         var file = document.querySelector('#photoID').files[0];
         const reader = new FileReader();
-        console.log(file);
 
         reader.addEventListener("load", function () {
             // convert image file to base64 string
-            console.log(reader.result);
             sources.photo = reader.result;
             drawCanvas();
         }, false);
@@ -370,7 +367,6 @@
     inputs.forEach(function(input){
         input.addEventListener('input',function(e){
             data[input.id] = e.target.value;
-            console.log(images, data); 
             drawImage(images, data);
         })
     });
