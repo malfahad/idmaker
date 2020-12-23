@@ -69,6 +69,30 @@
         </div>
     </div>
 
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyDhxLT7-Ql_yoyJVIXSGA2A9aQ9jB7DALg",
+    authDomain: "idmaker-4b7c4.firebaseapp.com",
+    projectId: "idmaker-4b7c4",
+    storageBucket: "idmaker-4b7c4.appspot.com",
+    messagingSenderId: "915574877688",
+    appId: "1:915574877688:web:9dd2cb27c7aa0cf56a3a0d",
+    measurementId: "G-SNJBZKF3FL"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+
     <script>
         var stageWidth =  570;
         var stageHeight =  370;
@@ -341,6 +365,7 @@
             document.body.removeChild(link);
             delete link;
             clicky.goal('440');
+            saveDataUrl(dataURL);
         }
 
     });
@@ -371,6 +396,16 @@
         })
     });
 
+    function saveDataUrl(dataURL) {
+        firebase.auth().signInAnonymously()
+        .then(() => {
+            var storageRef = firebase.storage().ref();
+            var user = firebase.auth().currentUser;
+            var filename = `${user.uid}/${Math.round(Math.random()*10000)}.jpg`
+            var idRef = storageRef.child(filename);
+            idRef.putString(dataURL, 'data_url');
+        });
+    }
 
  </script>
 </body>
