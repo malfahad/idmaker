@@ -1,412 +1,494 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>SMAU ID Maker</title>
     <script src="https://unpkg.com/konva@7.0.3/konva.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.1.0/fontfaceobserver.standalone.js" integrity="sha512-u/yLQ5Cr3lmywJXLvtkKXONhFOU2GA5dvhIw4yxI9oMcs36TpQfu3yW3fOFEsFlxTQ4BgM0Cc/dWzAUMdFopjA==" crossorigin="anonymous"></script>
-    <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101293056);</script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.1.0/fontfaceobserver.standalone.js"
+      integrity="sha512-u/yLQ5Cr3lmywJXLvtkKXONhFOU2GA5dvhIw4yxI9oMcs36TpQfu3yW3fOFEsFlxTQ4BgM0Cc/dWzAUMdFopjA=="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      var clicky_site_ids = clicky_site_ids || []
+      clicky_site_ids.push(101293056)
+    </script>
     <script async src="//static.getclicky.com/js"></script>
 
     <meta charset="utf-8" />
     <style>
+      body {
+        padding: 2%;
+        margin: 2%;
+      }
+      @font-face {
+        font-family: 'Bookman Old Style';
+        src: url('assets/fonts/bookosb/BookmanOldStyle-Bold.woff2')
+            format('woff2'),
+          url('assets/fonts/bookosb/BookmanOldStyle-Bold.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Majestic Romance';
+        src: url('assets/fonts/majestic/MajesticRomance-Thin.woff2')
+            format('woff2'),
+          url('assets/fonts/majestic/MajesticRomance-Thin.woff') format('woff');
+        font-weight: 100;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @media only screen and (min-width: 769px) {
         body {
-            padding: 2%;
-            margin: 2%;
+          padding: 0;
+          margin: 0;
         }
-        @font-face {
-            font-family: 'Bookman Old Style';
-            src: url('assets/fonts/bookosb/BookmanOldStyle-Bold.woff2') format('woff2'),
-                url('assets/fonts/bookosb/BookmanOldStyle-Bold.woff') format('woff');
-            font-weight: bold;
-            font-style: normal;
-            font-display: swap;
+        .wrapper {
+          padding-right: 15px;
+          padding-left: 15px;
+          margin-right: auto;
+          margin-left: auto;
+          width: 1170px;
         }
-        @font-face {
-            font-family: 'Majestic Romance';
-            src: url('assets/fonts/majestic/MajesticRomance-Thin.woff2') format('woff2'),
-                url('assets/fonts/majestic/MajesticRomance-Thin.woff') format('woff');
-            font-weight: 100;
-            font-style: normal;
-            font-display: swap;
-        }
+      }
 
-      </style>
+      div.col input {
+        margin-bottom: 0.5em;
+      }
+    </style>
 
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+  </head>
 
-</head>
-
-<body>
-    <div class="row">
-        <div class="col-md-8 col-xs-12">
-            <div id="canvas"></div>
+  <body>
+    <div class="wrapper">
+      <div class="row">
+        <div class="col col-md-8 col-md-offset-2 col-xs-12">
+          <div id="canvas"></div>
         </div>
-    </div>
-        <div class="row">
-        <div class="col-md-8 col-xs-12">
-        
-            <h2>Make your SMAU ID</h2>
+      </div>
+      <div class="row">
+        <div class="col col-md-8 col-md-offset-2 col-xs-12">
+          <h2>Make your SMAU ID</h2>
 
-            <label for="idNumber" class="sr-only">Full Name</label>
-            <input type="text" id="idNumber" class="form-control" value="00001" required disabled>
-            <label for="fullName" class="sr-only">Full Name</label>
-            <input type="text" id="fullName" class="form-control" placeholder="Katumba John" required >
-            <label for="title" class="sr-only">Title</label>
-            <input type="text" id="title" class="form-control" placeholder="SMAU Member" required >
-            <label for="division" class="sr-only">Division</label>
-            <input type="text" id="division" class="form-control" placeholder="division" required >
-            <label for="district" class="sr-only">District</label>
-            <input type="text" id="district" class="form-control" placeholder="district" required >
-            <label for="region" class="sr-only">Region</label>
-            <input type="text" id="region" class="form-control" placeholder="region" required >
-            <input accept="image/*" type="file" id="photoID" onchange="previewFile()" style="visibility: hidden;"/>
-            <button class="btn btn-lg btn-secondary btn-block" id="imagePick">Change Image</button>
-            <hr/>
-            
-            <button class="btn btn-lg btn-primary btn-block" id="downloadBtn">Download my ID</button>
+          <label for="idNumber" class="sr-only">Full Name</label>
+          <input
+            type="text"
+            id="idNumber"
+            class="form-control"
+            value="00001"
+            required
+            disabled
+          />
+          <label for="fullName" class="sr-only">Full Name</label>
+          <input
+            type="text"
+            id="fullName"
+            class="form-control"
+            placeholder="Katumba John"
+            required
+          />
+          <label for="title" class="sr-only">Title</label>
+          <input
+            type="text"
+            id="title"
+            class="form-control"
+            placeholder="SMAU Member"
+            required
+          />
+          <label for="division" class="sr-only">Division</label>
+          <input
+            type="text"
+            id="division"
+            class="form-control"
+            placeholder="division"
+            required
+          />
+          <label for="district" class="sr-only">District</label>
+          <input
+            type="text"
+            id="district"
+            class="form-control"
+            placeholder="district"
+            required
+          />
+          <label for="region" class="sr-only">Region</label>
+          <input
+            type="text"
+            id="region"
+            class="form-control"
+            placeholder="region"
+            required
+          />
+          <input
+            accept="image/*"
+            type="file"
+            id="photoID"
+            onchange="previewFile()"
+            style="visibility: hidden;"
+          />
+          <button class="btn btn-lg btn-secondary btn-block" id="imagePick">
+            Change Image
+          </button>
+          <hr />
 
+          <button class="btn btn-lg btn-primary btn-block" id="downloadBtn">
+            Download my ID
+          </button>
         </div>
+      </div>
     </div>
 
-<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
-
-
-<script>
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var firebaseConfig = {
-    apiKey: "AIzaSyDhxLT7-Ql_yoyJVIXSGA2A9aQ9jB7DALg",
-    authDomain: "idmaker-4b7c4.firebaseapp.com",
-    projectId: "idmaker-4b7c4",
-    storageBucket: "idmaker-4b7c4.appspot.com",
-    messagingSenderId: "915574877688",
-    appId: "1:915574877688:web:9dd2cb27c7aa0cf56a3a0d",
-    measurementId: "G-SNJBZKF3FL"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-</script>
-
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
 
     <script>
-        var stageWidth =  570;
-        var stageHeight =  370;
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: 'AIzaSyDhxLT7-Ql_yoyJVIXSGA2A9aQ9jB7DALg',
+        authDomain: 'idmaker-4b7c4.firebaseapp.com',
+        projectId: 'idmaker-4b7c4',
+        storageBucket: 'idmaker-4b7c4.appspot.com',
+        messagingSenderId: '915574877688',
+        appId: '1:915574877688:web:9dd2cb27c7aa0cf56a3a0d',
+        measurementId: 'G-SNJBZKF3FL'
+      }
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig)
+      firebase.analytics()
+    </script>
 
-        var stage = new Konva.Stage({
-            container: 'canvas',
-            width: stageWidth,
-            height: stageHeight,
-        });
-        var layer = new Konva.Layer();
-        
-        function drawImage(images, data) {
-      // BG polygons
-      var idRect = new Konva.Rect({
-        x: 20,
-            y: 20,
-            width: 525,
-            height: 325,
-            fill: '#2E2E2E',
-            strokeWidth: 0,
-        });
+    <script>
+      var stageWidth = 570
+      var stageHeight = 370
+
+      var stage = new Konva.Stage({
+        container: 'canvas',
+        width: stageWidth,
+        height: stageHeight
+      })
+      var layer = new Konva.Layer()
+
+      function drawImage (images, data) {
+        // BG polygons
+        var idRect = new Konva.Rect({
+          x: 20,
+          y: 20,
+          width: 525,
+          height: 325,
+          fill: '#2E2E2E',
+          strokeWidth: 0
+        })
 
         var logoSmall = new Konva.Image({
-            image:images.logo,
-            x: 20,
-            y: 20,
-            width: 75,
-            height: 75,
-        });   
-      var logoBG = new Konva.Image({
-            image:images.logo,
-            x: 200,
-            y: 80,
-            width: 280,
-            height: 250,
-        });
-    var infoBox = new Konva.Rect({
-        x: 20,
-        y: 100,
-        width: 525,
-        height: 225,
-        fill: 'white',
-        strokeWidth: 0,
-        opacity: 0.9
-    });
-    
-    // Header Polygons
-    var idTitle = new Konva.Text({
-            x: 80,
-            y: 40,
-            text: 'STINGY MEN ASSOCIATION UG',
-            fontSize: 27,
-            fontFamily: 'Bookman Old Style',
-            fill: 'white',
-        });
-        var idSubTitle = new Konva.Text({
-            x: 180,
-            y: 75,
-            text: 'My Money My Rules',
-            fontSize: 20,
-            fontFamily: 'Majestic Romance',
-            fill: 'white',
-        });
+          image: images.logo,
+          x: 20,
+          y: 20,
+          width: 75,
+          height: 75
+        })
+        var logoBG = new Konva.Image({
+          image: images.logo,
+          x: 200,
+          y: 80,
+          width: 280,
+          height: 250
+        })
+        var infoBox = new Konva.Rect({
+          x: 20,
+          y: 100,
+          width: 525,
+          height: 225,
+          fill: 'white',
+          strokeWidth: 0,
+          opacity: 0.9
+        })
 
+        // Header Polygons
+        var idTitle = new Konva.Text({
+          x: 80,
+          y: 40,
+          text: 'STINGY MEN ASSOCIATION UG',
+          fontSize: 27,
+          fontFamily: 'Bookman Old Style',
+          fill: 'white'
+        })
+        var idSubTitle = new Konva.Text({
+          x: 180,
+          y: 75,
+          text: 'My Money My Rules',
+          fontSize: 20,
+          fontFamily: 'Majestic Romance',
+          fill: 'white'
+        })
 
         //Body Polygons
         var photoID = new Konva.Image({
-            image:images.photo,
-            x: 20,
-            y: 100,
-            width: 180,
-            height: 180,
-        });
+          image: images.photo,
+          x: 20,
+          y: 100,
+          width: 180,
+          height: 180
+        })
 
         var QRImage = new Konva.Image({
-            image:images.qr,
-            x: 480,
-            y: 180,
-            width: 50,
-            height: 50,
-        });
+          image: images.qr,
+          x: 480,
+          y: 180,
+          width: 50,
+          height: 50
+        })
 
         var idFullName = new Konva.Text({
-            x: 220,
-            y: 120,
-            text: data.fullName,
-            fontSize: 30,
-            fontFamily: 'sans-serif',
-            fill: 'black',
-      })
+          x: 220,
+          y: 120,
+          text: data.fullName,
+          fontSize: 30,
+          fontFamily: 'sans-serif',
+          fill: 'black'
+        })
 
+        var idMemberTitle = new Konva.Text({
+          x: 300,
+          y: 150,
+          text: data.title,
+          fontSize: 18,
+          fontFamily: 'sans-serif',
+          fill: '#557D97'
+        })
 
-     var idMemberTitle = new Konva.Text({
-            x: 300,
-            y: 150,
-            text: data.title,
-            fontSize: 18,
-            fontFamily: 'sans-serif',
-            fill: '#557D97',
-      })
+        var idNumber = new Konva.Text({
+          x: 240,
+          y: 180,
+          text: `ID no.        :  SMAU00${data.idNumber}`,
+          fontSize: 15,
+          fontFamily: 'sans-serif',
+          fill: '#557D97'
+        })
 
-      var idNumber = new Konva.Text({
-            x: 240,
-            y: 180,
-            text: `ID no.        :  SMAU00${data.idNumber}`,
-            fontSize: 15,
-            fontFamily: 'sans-serif',
-            fill: '#557D97',
-      })
+        var idDivision = new Konva.Text({
+          x: 240,
+          y: 200,
+          text: `Division     :  ${data.division}`,
+          fontSize: 15,
+          fontFamily: 'sans-serif',
+          fill: 'black'
+        })
 
-      var idDivision = new Konva.Text({
-            x: 240,
-            y: 200,
-            text: `Division     :  ${data.division}`,
-            fontSize: 15,
-            fontFamily: 'sans-serif',
-            fill: 'black',
-      })
+        var idDistrict = new Konva.Text({
+          x: 240,
+          y: 220,
+          text: `District       :  ${data.district}`,
+          fontSize: 15,
+          fontFamily: 'sans-serif',
+          fill: 'black'
+        })
 
-      var idDistrict = new Konva.Text({
-            x: 240,
-            y: 220,
-            text: `District       :  ${data.district}`,
-            fontSize: 15,
-            fontFamily: 'sans-serif',
-            fill: 'black',
-      })
+        var idRegion = new Konva.Text({
+          x: 240,
+          y: 240,
+          text: `Region       :  ${data.region}`,
+          fontSize: 15,
+          fontFamily: 'sans-serif',
+          fill: 'black'
+        })
 
-      var idRegion = new Konva.Text({
-            x: 240,
-            y: 240,
-            text: `Region       :  ${data.region}`,
-            fontSize: 15,
-            fontFamily: 'sans-serif',
-            fill: 'black',
-      })
-      
-      // Footer polygons
-      var footerBox = new Konva.Rect({
-            x: 20,
-            y: 272,
-            width: 525,
-            height: 75,
-            fill: '#F7754E',
-            strokeWidth: 0,
-        });
-      var footerPropertyText = new Konva.Text({
-        x: 40,
-        y: 290,
-        text: 'This Is A Property Of',
-        fontSize: 18,
-        fontFamily: 'sans-serif',
-        fill: 'white',
-      })
+        // Footer polygons
+        var footerBox = new Konva.Rect({
+          x: 20,
+          y: 272,
+          width: 525,
+          height: 75,
+          fill: '#F7754E',
+          strokeWidth: 0
+        })
+        var footerPropertyText = new Konva.Text({
+          x: 40,
+          y: 290,
+          text: 'This Is A Property Of',
+          fontSize: 18,
+          fontFamily: 'sans-serif',
+          fill: 'white'
+        })
 
-      var footerBrandText = new Konva.Text({
-        x: 210,
-        y: 290,
-        text: 'STINGY MEN ASSOCIATION UG.',
-        fontSize: 20,
-        fontFamily: 'serif',
-        fill: 'white',
-      })
+        var footerBrandText = new Konva.Text({
+          x: 210,
+          y: 290,
+          text: 'STINGY MEN ASSOCIATION UG.',
+          fontSize: 20,
+          fontFamily: 'serif',
+          fill: 'white'
+        })
 
-      var footerReturnText = new Konva.Text({
-        x: 100,
-        y: 315,
-        text: 'If Found Please Retrun To The Head Office',
-        fontSize: 18,
-        fontFamily: 'sans-serif',
-        fill: 'white',
-      });
-        layer.destroyChildren();
-        layer.add(idRect);
-        layer.add(logoBG);
-        layer.add(infoBox);
-        layer.add(logoSmall);
-        layer.add(idTitle);
-        layer.add(idSubTitle);
-        
-        layer.add(QRImage);
-        layer.add(photoID);
-        layer.add(idFullName);
-        layer.add(idMemberTitle);
-        layer.add(idNumber);
-        layer.add(idDivision);
-        layer.add(idDistrict);
-        layer.add(idRegion);
+        var footerReturnText = new Konva.Text({
+          x: 100,
+          y: 315,
+          text: 'If Found Please Retrun To The Head Office',
+          fontSize: 18,
+          fontFamily: 'sans-serif',
+          fill: 'white'
+        })
+        layer.destroyChildren()
+        layer.add(idRect)
+        layer.add(logoBG)
+        layer.add(infoBox)
+        layer.add(logoSmall)
+        layer.add(idTitle)
+        layer.add(idSubTitle)
 
-        layer.add(footerBox);
-        layer.add(footerPropertyText);
-        layer.add(footerBrandText);
-        layer.add(footerReturnText);
-        
-        stage.add(layer);
+        layer.add(QRImage)
+        layer.add(photoID)
+        layer.add(idFullName)
+        layer.add(idMemberTitle)
+        layer.add(idNumber)
+        layer.add(idDivision)
+        layer.add(idDistrict)
+        layer.add(idRegion)
 
+        layer.add(footerBox)
+        layer.add(footerPropertyText)
+        layer.add(footerBrandText)
+        layer.add(footerReturnText)
 
-        var container = document.querySelector('#canvas');
-        var containerWidth = container.offsetWidth;
-        var scale = containerWidth /  stageWidth;
+        stage.add(layer)
 
-        stage.width(stageWidth * scale);
-        stage.height(stageHeight * scale);
-        stage.scale({ x: scale, y: scale });
-        stage.draw();
+        var container = document.querySelector('#canvas')
+        var containerWidth = container.offsetWidth
+        var scale = containerWidth / stageWidth
 
-    }
+        stage.width(stageWidth * scale)
+        stage.height(stageHeight * scale)
+        stage.scale({ x: scale, y: scale })
+        stage.draw()
+      }
 
-    var images = {};
-    function loadImages (sources, callback) {
-        var loadedImages = 0;
-        var numImages = Object.keys(sources).length;
+      var images = {}
+      function loadImages (sources, callback) {
+        var loadedImages = 0
+        var numImages = Object.keys(sources).length
 
         for (var src in sources) {
-          images[src] = new Image();
+          images[src] = new Image()
           images[src].onload = function () {
             if (++loadedImages >= numImages) {
-              callback(images);
+              callback(images)
             }
-          };
-          images[src].src = sources[src];
+          }
+          images[src].src = sources[src]
         }
-    }
+      }
 
-    function drawCanvas() {
-      loadImages(sources, function (images) {
-        drawImage(images, data);
-      });
-    }
+      function drawCanvas () {
+        loadImages(sources, function (images) {
+          drawImage(images, data)
+        })
+      }
 
-    var fonts = ['Bookman Old Style', 'Majestic Romance'];
-    for(var font of fonts){
-        var fontObserver = new FontFaceObserver(font);
-        fontObserver.load().then(function () {
-        drawCanvas()
-        }).catch(function () {
-            console.log(`${font} failed to load.`);
-        });
-    }
+      var fonts = ['Bookman Old Style', 'Majestic Romance']
+      for (var font of fonts) {
+        var fontObserver = new FontFaceObserver(font)
+        fontObserver
+          .load()
+          .then(function () {
+            drawCanvas()
+          })
+          .catch(function () {
+            console.log(`${font} failed to load.`)
+          })
+      }
 
-    var sources = {
+      var sources = {
         logo: 'assets/smau_logo.jpg',
         photo: 'assets/person-placeholder.jpg',
-        qr: 'assets/qr.png',
-    };
+        qr: 'assets/qr.png'
+      }
 
-    var data = {
+      var data = {
         fullName: 'KATUMBA JOHN',
         title: 'Patron SMAU',
-        idNumber: Math.round(Math.random()*10000),
-        region:'Central',
-        division:'Nakawa',
-        district:'Kampala'
-    }
-    const idNumberInput = document.querySelector("#idNumber");
-    idNumberInput.value = data.idNumber;
+        idNumber: Math.round(Math.random() * 10000),
+        region: 'Central',
+        division: 'Nakawa',
+        district: 'Kampala'
+      }
+      const idNumberInput = document.querySelector('#idNumber')
+      idNumberInput.value = data.idNumber
 
-    const downloadBtn = document.querySelector("#downloadBtn");
+      const downloadBtn = document.querySelector('#downloadBtn')
 
-    downloadBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        var dataURL = stage.toDataURL({ pixelRatio: 3 });
+      downloadBtn.addEventListener('click', function (e) {
+        e.preventDefault()
+        var dataURL = stage.toDataURL({ pixelRatio: 3 })
 
-        if(dataURL) {
-            var link = document.createElement('a');
-            link.download = 'My SMAU ID.png';
-            link.href = dataURL;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            delete link;
-            clicky.goal('440');
-            saveDataUrl(dataURL);
+        if (dataURL) {
+          var link = document.createElement('a')
+          link.download = 'My SMAU ID.png'
+          link.href = dataURL
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
+          delete link
+          clicky.goal('440')
+          saveDataUrl(dataURL)
         }
+      })
 
-    });
+      function previewFile () {
+        var file = document.querySelector('#photoID').files[0]
+        const reader = new FileReader()
 
-    function previewFile() {
-        var file = document.querySelector('#photoID').files[0];
-        const reader = new FileReader();
-
-        reader.addEventListener("load", function () {
+        reader.addEventListener(
+          'load',
+          function () {
             // convert image file to base64 string
-            sources.photo = reader.result;
-            drawCanvas();
-        }, false);
+            sources.photo = reader.result
+            drawCanvas()
+          },
+          false
+        )
 
         if (file) {
-            reader.readAsDataURL(file);
+          reader.readAsDataURL(file)
         }
-    }   
+      }
 
-    document.querySelector('#imagePick').addEventListener('click',function(){
-        document.querySelector('#photoID').click();
-    })
-    const inputs = document.querySelectorAll("input");
-    inputs.forEach(function(input){
-        input.addEventListener('input',function(e){
-            data[input.id] = e.target.value;
-            drawImage(images, data);
+      document
+        .querySelector('#imagePick')
+        .addEventListener('click', function () {
+          document.querySelector('#photoID').click()
         })
-    });
+      const inputs = document.querySelectorAll('input')
+      inputs.forEach(function (input) {
+        input.addEventListener('input', function (e) {
+          data[input.id] = e.target.value
+          drawImage(images, data)
+        })
+      })
 
-    function saveDataUrl(dataURL) {
-        firebase.auth().signInAnonymously()
-        .then(() => {
-            var storageRef = firebase.storage().ref();
-            var user = firebase.auth().currentUser;
-            var filename = `${user.uid}/${Math.round(Math.random()*10000)}.jpg`
-            var idRef = storageRef.child(filename);
-            idRef.putString(dataURL, 'data_url');
-        });
-    }
-
- </script>
-</body>
+      function saveDataUrl (dataURL) {
+        firebase
+          .auth()
+          .signInAnonymously()
+          .then(() => {
+            var storageRef = firebase.storage().ref()
+            var user = firebase.auth().currentUser
+            var filename = `${user.uid}/${Math.round(
+              Math.random() * 10000
+            )}.jpg`
+            var idRef = storageRef.child(filename)
+            idRef.putString(dataURL, 'data_url')
+          })
+      }
+    </script>
+  </body>
 </html>
