@@ -3,7 +3,10 @@
   <head>
     <title>SMAU ID Maker</title>
     <link rel="icon" href="assets/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
     <script src="https://unpkg.com/konva@7.0.3/konva.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.1.0/fontfaceobserver.standalone.js"
@@ -57,6 +60,34 @@
 
       div.col input {
         margin-bottom: 0.5em;
+      }
+
+      .glyphicon-refresh-animate {
+        -animation: spin 0.7s infinite linear;
+        -webkit-animation: spin2 0.7s infinite linear;
+      }
+
+      @-webkit-keyframes spin2 {
+        from {
+          -webkit-transform: rotate(0deg);
+        }
+        to {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin {
+        from {
+          transform: scale(1) rotate(0deg);
+        }
+        to {
+          transform: scale(1) rotate(360deg);
+        }
+      }
+
+      #download-loader {
+        margin-bottom: 0.3em;
+        display: none;
       }
     </style>
 
@@ -140,7 +171,14 @@
             Change Image
           </button>
           <hr />
-
+          <div class="text-center" id="download-loader">
+            <button class="btn btn-lg btn-warning text-center">
+              <span
+                class="glyphicon glyphicon-refresh glyphicon-refresh-animate"
+              ></span>
+              Downloading...
+            </button>
+          </div>
           <button class="btn btn-lg btn-primary btn-block" id="downloadBtn">
             Download my ID
           </button>
@@ -428,11 +466,15 @@
 
       const downloadBtn = document.querySelector('#downloadBtn')
 
+      let loader = document.getElementById('download-loader');
+
       downloadBtn.addEventListener('click', function (e) {
         e.preventDefault()
+        loader.style.display = 'block';
         var dataURL = stage.toDataURL({ pixelRatio: 3 })
 
         if (dataURL) {
+          console.log('nvnvnvnv: ', loader);
           var link = document.createElement('a')
           link.download = 'My SMAU ID.png'
           link.href = dataURL
@@ -441,7 +483,8 @@
           document.body.removeChild(link)
           delete link
           clicky.goal('440')
-          saveDataUrl(dataURL)
+          saveDataUrl(dataURL);
+          loader.style.display = 'none';
         }
       })
 
